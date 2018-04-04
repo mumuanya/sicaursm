@@ -33,7 +33,7 @@
 	<!--配置mybatis的sqlsessionfactory  -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="mapperLocations" value="classpath:com/rk/mapping/*.xml"></property>
+		<property name="mapperLocations" value="classpath*:com/rk/mapping/*.xml"></property>
 	</bean>
 	<!--配置mybatis的dao扫描  -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -54,5 +54,34 @@
 	</bean>
 	<!--事务 注解  -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	
+	<!--接着配置邮件发送的bean  -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+   		<property name="host" value="${mail.host}"/>
+   		<property name="port" value="${mail.port}"/>
+   		<property name="protocol" value="${mail.protocol}"/>
+   		<property name="username" value="${mail.username}"/>
+   		<property name="password" value="${mail.password}"/>
+   		<property name="defaultEncoding" value="${mail.defaultEncoding}"/>
+   		<property name="javaMailProperties">
+   			<props>
+   				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+   				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+   			</props>
+   		</property>
+	</bean>
+	
+	<!--配置一个邮件发送的消息模板  -->
+	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+	    <property name="from" value="${mail.username}"/>
+	    <property name="subject" value="${mail.subject}"/>
+	</bean>
+	
+	<!--配置一个密码重置邮件通知的bean  -->
+	<bean id="passwordAssistant" class="com.rk.service.impl.PasswordAssistantImpl">
+		<property name="mailSender" ref="mailSender"></property>
+		<property name="simpleMailMessage" ref="templateMessage"></property>
+	</bean>
 	
 </beans>
