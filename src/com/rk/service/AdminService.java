@@ -1,13 +1,7 @@
 
-package com.rk.test;
+package com.rk.service;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.rk.dao.UserMapper;
+import com.rk.model.User;
 
 /** 
                    _ooOoo_ 
@@ -31,22 +25,14 @@ import com.rk.dao.UserMapper;
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
          佛祖保佑       永无BUG 
 */
-public class TestDao {
+public interface AdminService {
+	
+	/**
+	 * 管理员登录方法
+	 * @param account 账号
+	 * @param password 密码
+	 * @return 如果登录成功,返回一个用户,如果登录失败,返回<b>null</b>
+	 */
+	User login(String account, String password);
 
-	ApplicationContext ctx = null;
-	@Before
-	public void before() {
-		ctx = new ClassPathXmlApplicationContext("classpath:root-context.xml");
-	}
-	
-	@Test
-	public void m1() {
-		UserMapper userMapper = (UserMapper)ctx.getBean("userMapper");
-		System.out.println(userMapper.selectByAccount("xxxxxxx").getNeckname());
-	}
-	
-	@After
-	public void after() {
-		System.out.println("测试执行完毕");
-	}
 }

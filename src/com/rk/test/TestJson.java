@@ -1,13 +1,9 @@
 
 package com.rk.test;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.rk.dao.UserMapper;
+import com.rk.util.logindata.AdminLoginData;
 
 /** 
                    _ooOoo_ 
@@ -31,22 +27,14 @@ import com.rk.dao.UserMapper;
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
          佛祖保佑       永无BUG 
 */
-public class TestDao {
-
-	ApplicationContext ctx = null;
-	@Before
-	public void before() {
-		ctx = new ClassPathXmlApplicationContext("classpath:root-context.xml");
-	}
+public class TestJson {
 	
 	@Test
 	public void m1() {
-		UserMapper userMapper = (UserMapper)ctx.getBean("userMapper");
-		System.out.println(userMapper.selectByAccount("xxxxxxx").getNeckname());
+		System.out.println(AdminLoginData.success("成功了"));
+		System.out.println(AdminLoginData.incorrectPassword("密码不正确"));
+		System.out.println(AdminLoginData.noAccount("没有这个用户"));
+		System.out.println(AdminLoginData.timeout("超时"));
 	}
-	
-	@After
-	public void after() {
-		System.out.println("测试执行完毕");
-	}
+
 }

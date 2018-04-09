@@ -1,8 +1,5 @@
 
-package com.rk.controller;
-
-import org.springframework.stereotype.Controller;
-
+package com.rk.util;
 /** 
                    _ooOoo_ 
                   o8888888o 
@@ -25,7 +22,6 @@ import org.springframework.stereotype.Controller;
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
          ·ð×æ±£ÓÓ       ÓÀÎÞBUG 
 */
-@Controller
-public class test {
+public class Packageinfo {
 
 }
